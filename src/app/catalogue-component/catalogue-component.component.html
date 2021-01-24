@@ -1,0 +1,57 @@
+
+  <div *ngIf="sourcePage!='Cart'" class="container">
+    <div class="finder">
+      <div class="finder__outer">
+        <div class="finder__inner">
+          <div class="finder__icon" ref="icon"></div>
+          <input class="finder__input" type="text" (keyup.enter)="search(q.value)" #q placeholder="Search here..."/>
+        </div>
+      </div>
+    </div>
+</div>
+
+<div *ngIf="sourcePage=='Cart'"> 
+  <p class="card-text">Total Price: &#x20b9; {{cartTotal}}</p>
+  <a *ngIf="cartTotal>10" (click)="Checkout()" class="btn btn-primary" data-abc="true">Checkout</a>
+
+</div>
+
+<ul class="cards" >
+      <!--TODO: Add material card-->
+      <li class="cards-item" *ngFor="let book of bookList">
+        <div class="card" *ngIf="book.cartCount>0 || sourcePage!='Cart' ">
+            <img class="card-image" src="{{book.url}}" width="242" height="225"/>
+            <div class="card-content">
+                <div class="card-title">{{book.title}}</div>
+                <p class="card-text">Price: &#x20b9; {{book.price}}</p>
+                <p class="card-text">ISBN: {{book.isbn}}</p>
+                <p class="card-text">Language: {{book.language_code | uppercase}}</p>
+                <div class="star-ratings-css" title={{book.average_rating*0.2}}></div>
+                <span style="font-size: 10px;">{{book.ratings_count}} User Ratings</span>
+            </div>
+            <a *ngIf="book.cartCount>0" style="background-color: red !important;"class="cards-button button-block" (click)="removeFromCart(book)"><span>Remove from Cart</span></a>
+            <a *ngIf="book.cartCount==0" class="cards-button button-block" (click)="addToCart(book)"><span>Add To Cart</span></a>
+        </div>
+    </li>
+
+</ul>
+
+<div *ngIf="bookList.length==0  && sourcePage=='Cart'">
+  <div class="container-fluid mt-100">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="emptycard">
+                <div class="emptycard-body cart">
+                    <div class="col-sm-12 empty-cart-cls text-center"> <img src="https://i.imgur.com/dCdflKN.png" width="130" height="130" class="img-fluid mb-4 mr-3">
+                        <h3><strong>Your Cart is Empty</strong></h3>
+                        <h4>Add something to make me happy :)</h4> 
+                        <a (click)="goToHome()" class="btn btn-primary" data-abc="true">continue shopping</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</div>
+
+
