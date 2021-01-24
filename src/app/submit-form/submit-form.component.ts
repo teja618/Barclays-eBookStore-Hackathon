@@ -13,9 +13,10 @@ import { StorageServiceService } from '../storage-service.service';
 export class SubmitFormComponent implements OnInit {
 
   submitForm:FormGroup;
+  msg: string;
   constructor(private loadingController:LoadingController,private router:Router,private formBuilder: FormBuilder,private http:HttpClient,private storageService:StorageServiceService) { }
-
-
+  text="Proceed To Pay"
+  regex=new RegExp(/^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$/)
   ngOnInit(): void {
     let val:number=this.storageService.getCartValue();
     if(val==0){
@@ -23,7 +24,7 @@ export class SubmitFormComponent implements OnInit {
     }
     this.submitForm =this.formBuilder.group({
       full_name: new FormControl('', [Validators.required]),
-      email: new FormControl('', [Validators.required, Validators.pattern(/^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$/)]),
+      email: new FormControl('', [Validators.required, Validators.pattern(this.regex)]),
       phone_number: new FormControl('',  [Validators.required,Validators.minLength(10)]),
       description: new FormControl('', [Validators.required]),
       amount:new FormControl(val,[Validators.required]),
@@ -50,6 +51,8 @@ export class SubmitFormComponent implements OnInit {
     
 
     if(this.submitForm.valid){
+      this.text="Please Wait..."
+      this.msg="Hold On! Redirecting you to secure payment gateway!"
      
       let req={
           "amount": (Number)(this.submitForm.get('amount').value),

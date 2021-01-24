@@ -42,10 +42,15 @@
 
                     <button type="submit" class="btn btn-login float-left" (click)="goBack()">&laquo; Go Back</button>
 
-					<button type="submit" class="btn btn-login float-right" (click)="proceed()">Proceed to Pay</button>
-				</form>
+					<button type="submit" class="btn btn-login float-right" (click)="proceed()">{{text}}</button>
+                   
+                    
+                </form>
+             
 			</div>
 			
-		</div>
+        </div>
+        <p style="color: red; background-color: white;" *ngIf="text=='Please Wait...'">{{msg}}</p>
 	</div>
 </section>
+
