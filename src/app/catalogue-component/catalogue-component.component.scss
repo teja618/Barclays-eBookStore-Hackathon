@@ -224,7 +224,7 @@ body {
     display: flex;
     justify-content: center;
     align-items: center;
-    flex-direction: column;
+    flex-direction: row;
   }
   
   .finder {
@@ -268,7 +268,7 @@ body {
   
   @media (max-width: 768px) {
     .finder__outer {
-      max-width: 458px;
+      max-width: 300px;
     }
     
   }

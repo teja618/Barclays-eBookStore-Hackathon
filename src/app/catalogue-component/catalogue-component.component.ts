@@ -3,6 +3,8 @@ import { Component, Input, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import {LazyForDirective} from '../lazy-for.directive'
 import { StorageServiceService } from '../storage-service.service';
+import { LoadingController } from '@ionic/angular';
+
 @Component({
   selector: 'app-catalogue-component',
   templateUrl: './catalogue-component.component.html',
@@ -11,13 +13,14 @@ import { StorageServiceService } from '../storage-service.service';
 export class CatalogueComponent implements OnInit {
 
   @Input('fromPage') sourcePage;
+  loading: boolean = true;
   bookList:any[]=[];
   cartList:any[]=[];
   searchValue:string;
   imageList: any[]=[];
   tempList: any[]=[];
   cartTotal: number=0;
-  constructor(private http:HttpClient,private storageService:StorageServiceService,private router:Router) { }
+  constructor(private loadingController:LoadingController,private http:HttpClient,private storageService:StorageServiceService,private router:Router) { }
 
   ngOnInit(): void {
     console.log(this.sourcePage);
@@ -38,13 +41,13 @@ export class CatalogueComponent implements OnInit {
     
   }
 
-  getImageList() {
+   getImageList() {
     this.http.get('https://s3-ap-southeast-1.amazonaws.com/he-public-data/bookimage816b123.json').subscribe((res:any)=>{
       this.imageList=res;
     })
   }
 
-  getBooks() {
+   getBooks() {
     this.http.get('https://s3-ap-southeast-1.amazonaws.com/he-public-data/books8f8fe52.json').subscribe((res:any)=>{
       this.tempList=res;
       for(let i=0;i<100;i++){
@@ -54,6 +57,7 @@ export class CatalogueComponent implements OnInit {
       }
       this.tempList=[...this.bookList];
       this.storageService.setBookList(this.tempList);
+     
     })
   }
 

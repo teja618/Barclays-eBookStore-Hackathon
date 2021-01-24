@@ -1,13 +1,13 @@
-
   <div *ngIf="sourcePage!='Cart'" class="container">
     <div class="finder">
       <div class="finder__outer">
         <div class="finder__inner">
           <div class="finder__icon" ref="icon"></div>
-          <input class="finder__input" type="text" (keyup.enter)="search(q.value)" #q placeholder="Search here..."/>
+          <input class="finder__input" type="text"  #q placeholder="Search Here..."/>
         </div>
       </div>
     </div>
+    <button type="button" id="searchButton" (click)="search(q.value)" class="btn btn-outline-secondary btn-lg" Style="box-shadow: 3px 2px 0px 1px;margin: 10px;width: 100px;height: 48px;">Search</button>
 </div>
 
 <div *ngIf="sourcePage=='Cart'"> 

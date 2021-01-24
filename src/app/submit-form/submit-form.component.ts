@@ -2,6 +2,7 @@ import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators, FormControl } from '@angular/forms';
 import { Router } from '@angular/router';
+import { LoadingController } from '@ionic/angular';
 import { StorageServiceService } from '../storage-service.service';
 
 @Component({
@@ -12,15 +13,18 @@ import { StorageServiceService } from '../storage-service.service';
 export class SubmitFormComponent implements OnInit {
 
   submitForm:FormGroup;
-  constructor(private router:Router,private formBuilder: FormBuilder,private http:HttpClient,private storageService:StorageServiceService) { }
+  constructor(private loadingController:LoadingController,private router:Router,private formBuilder: FormBuilder,private http:HttpClient,private storageService:StorageServiceService) { }
 
 
   ngOnInit(): void {
     let val:number=this.storageService.getCartValue();
+    if(val==0){
+      this.router.navigate(['home']);
+    }
     this.submitForm =this.formBuilder.group({
       full_name: new FormControl('', [Validators.required]),
-      email: new FormControl('', [Validators.required, Validators.email]),
-      phone_number: new FormControl('',  [Validators.required]),
+      email: new FormControl('', [Validators.required, Validators.pattern(/^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$/)]),
+      phone_number: new FormControl('',  [Validators.required,Validators.minLength(10)]),
       description: new FormControl('', [Validators.required]),
       amount:new FormControl(val,[Validators.required]),
     });
@@ -30,9 +34,12 @@ export class SubmitFormComponent implements OnInit {
     return this.submitForm.get(control);
   }
 
+  goBack(){
+    this.router.navigate(['cart']);
+  }
 
-
-  proceed(){
+   proceed(){
+ 
     if(this.submitForm.invalid){
       Object.keys(this.submitForm.controls).forEach(key => {
         this.submitForm.get(key).markAsTouched();
@@ -40,9 +47,10 @@ export class SubmitFormComponent implements OnInit {
       return;
     }
     
-
+    
 
     if(this.submitForm.valid){
+     
       let req={
           "amount": (Number)(this.submitForm.get('amount').value),
           "description": this.submitForm.get('description').value,
@@ -53,7 +61,8 @@ export class SubmitFormComponent implements OnInit {
       
       this.http.post('https://barclays-hackathon.herokuapp.com/payment/v1',req).subscribe((response:any)=>{
         if(response!=null){
-          let paymentURL=response.paymentOptions.paymentUrl
+          let paymentURL=response.paymentOptions.paymentUrl;
+          
           window.location.href = paymentURL;
         }
       },error => console.log('oops', error));

@@ -11,8 +11,8 @@ import {ScrollingModule} from '@angular/cdk/scrolling';
 import { LazyForDirective } from './lazy-for.directive';
 import { StorageServiceService } from './storage-service.service';
 import { SubmitFormComponent } from './submit-form/submit-form.component';
-import {FormsModule, ReactiveFormsModule} from '@angular/forms'
-
+import {FormsModule, ReactiveFormsModule} from '@angular/forms';
+import {IonicModule} from '@ionic/angular';
 
 @NgModule({
   declarations: [
@@ -20,7 +20,7 @@ import {FormsModule, ReactiveFormsModule} from '@angular/forms'
     CatalogueComponent,
     CartComponent,
     LazyForDirective,
-    SubmitFormComponent
+    SubmitFormComponent,
   ],
   imports: [
     BrowserModule,
