@@ -12,6 +12,7 @@ import { StorageServiceService } from '../storage-service.service';
 })
 export class SubmitFormComponent implements OnInit {
 
+  loading=false;
   submitForm:FormGroup;
   msg: string;
   constructor(private loadingController:LoadingController,private router:Router,private formBuilder: FormBuilder,private http:HttpClient,private storageService:StorageServiceService) { }
@@ -51,6 +52,7 @@ export class SubmitFormComponent implements OnInit {
     
 
     if(this.submitForm.valid){
+      this.loading=true;
       this.text="Please Wait..."
       this.msg="Hold On! Redirecting you to secure payment gateway!"
      
@@ -65,7 +67,7 @@ export class SubmitFormComponent implements OnInit {
       this.http.post('https://barclays-hackathon.herokuapp.com/payment/v1',req).subscribe((response:any)=>{
         if(response!=null){
           let paymentURL=response.paymentOptions.paymentUrl;
-          
+          this.loading=false;
           window.location.href = paymentURL;
         }
       },error => console.log('oops', error));

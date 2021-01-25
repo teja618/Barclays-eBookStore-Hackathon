@@ -10,13 +10,16 @@
     <button type="button" id="searchButton" (click)="search(q.value)" class="btn btn-outline-secondary btn-lg" Style="box-shadow: 3px 2px 0px 1px;margin: 10px;width: 100px;height: 48px;">Search</button>
 </div>
 
+
 <div *ngIf="sourcePage=='Cart'"> 
   <p class="card-text">Total Price: &#x20b9; {{cartTotal}}</p>
   <a *ngIf="cartTotal>10" (click)="Checkout()" class="btn btn-primary" data-abc="true">Checkout</a>
 
 </div>
 
-<ul class="cards" >
+
+    
+    <ul class="cards" >
       <!--TODO: Add material card-->
       <li class="cards-item" *ngFor="let book of bookList">
         <div class="card" *ngIf="book.cartCount>0 || sourcePage!='Cart' ">

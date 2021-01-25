@@ -50,7 +50,13 @@
 			</div>
 			
         </div>
-        <p style="color: red; background-color: white;" *ngIf="text=='Please Wait...'">{{msg}}</p>
+      
+        <div style="margin-left: 116px;" *ngIf="loading">
+        <mat-spinner 
+        [mode]="'indeterminate'" value=100 [diameter]="70"> </mat-spinner>
+    </div>
+
+        <p style="color: #00acdc; background-color: white;" *ngIf="text=='Please Wait...'">{{msg}}</p>
 	</div>
 </section>
 

@@ -33,6 +33,7 @@ export class CatalogueComponent implements OnInit {
       })
       this.cartTotal=s;
       this.storageService.setCartValue(this.cartTotal);
+      this.loading=false;
     }else{
       this.getImageList();
       this.getBooks();
@@ -59,6 +60,7 @@ export class CatalogueComponent implements OnInit {
       this.storageService.setBookList(this.tempList);
      
     })
+    this.loading=false;
   }
 
   getRandomImage(){
