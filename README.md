@@ -1,5 +1,17 @@
 # BarclaysHack-UI
 
+This is a simple single paged application which has below functions :
+1.Display list of books.
+2.Add Books to Cart.
+3.Checkout and fill the details
+4.Make Payment using Instamojo payment provider: (Java-  https://github.com/teja618/Instamojo-Java-PaymentGateway)
+5.Test Card Details below:
+Number: 4242 4242 4242 4242
+Date: Any valid future date
+CVV: 111
+Name: abc
+3D-secure password: 1221
+
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 11.1.1.
 
 ## Development server
